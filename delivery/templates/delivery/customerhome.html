@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+</head>
+<body>
+    
+<div class="bg-float">🍔</div>
+<div class="bg-float">🍕</div>
+<div class="bg-float">🌯</div>
+<div class="bg-float">🍟</div>
+<div class="bg-float">🥤</div>
+    <h3>Welcome {{username}}</h3>
+    <br>
+    <table >
+        <tr>
+        <th>Restaurant Name</th>
+        <th>Picture</th>
+        <th>Cusine</th>
+        <th>Rating</th>
+        <th>Operation</th>
+        </tr>
+        
+
+        {% for res in restaurant %}
+        <tr>
+            <td>{{res.name}}</td>
+            <td><img src="{{res.picture}}"></td>
+            <td>{{res.cuisine}}</td>
+            <td>{{res.rating}}</td>
+            <td>
+                <a href="{% url 'open_menu' res.name username %}">Open Menu</a> <br>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </table>
+</body>
+</html>

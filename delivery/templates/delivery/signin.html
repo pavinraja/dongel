@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+</head>
+<body>
+    
+<div class="bg-float">🍔</div>
+<div class="bg-float">🍕</div>
+<div class="bg-float">🌯</div>
+<div class="bg-float">🍟</div>
+<div class="bg-float">🥤</div>
+    <h1>Sign In:</h1> <br><br>
+    <div class="container">
+    <form action="{% url 'sign_in' %}" method="post">
+
+           {% csrf_token %}
+
+           <label for="username">Username</label> 
+           <input type="text" id="username" name="username"> <br><br>
+
+           <label for="password">Password</label>
+           <input type="password" id="password" name="password"> <br><br>
+
+           <input type="submit" value="SignIn">
+
+    </form>
+    </div>
+</body>
+</html>

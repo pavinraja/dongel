@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dongel</title>
+
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+</head>
+<body>
+    
+<div class="bg-float">🍔</div>
+<div class="bg-float">🍕</div>
+<div class="bg-float">🌯</div>
+<div class="bg-float">🍟</div>
+<div class="bg-float">🥤</div>
+
+<div class="container">
+    <h1>Dongel</h1>
+  <p >"Your go-to food delivery app – Fast, Fresh, and Friendly."</p> <br>
+  <a href="{% url 'open_signup' %}" class="button-link">Sign Up</a> <br><br>
+  <a href="{% url 'open_signin' %}" class="button-link">Sign In</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+</head>
+<body>
+    
+<div class="bg-float">🍔</div>
+<div class="bg-float">🍕</div>
+<div class="bg-float">🌯</div>
+<div class="bg-float">🍟</div>
+<div class="bg-float">🥤</div>
+    
+    <h1>Welcome {{ username }}</h1>
+    <h2>Your Cart</h2>
+    <div class="container">
+    {% if items %}
+    <table >
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>
+                    <img src="{{ item.picture }}" alt="{{ item.name }}" width="100">
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.desc }}</td>
+                <td>₹{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <h3>Total Price: ₹{{ total_price }}</h3>
+    <a href="#">Proceed to CheckOut</a>
+    {% else %}
+      <h3>No Item in the Cart</h3>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+</head>
+<body>
+    
+<div class="bg-float">🍔</div>
+<div class="bg-float">🍕</div>
+<div class="bg-float">🌯</div>
+<div class="bg-float">🍟</div>
+<div class="bg-float">🥤</div>
+      <h3>Welcome {{uname}}</h3>
+      <a href="{% url 'show_cart_page' uname %}">View Cart</a>
+       {% if items %}
+        <table >
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Vegetarian</th>
+            <th>Picture</th>
+            <th>price</th>
+            <th>Operation</th>
+        </tr>
+        
+        {% for item in items %}
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.desc}}</td>
+            <td>{% if item.veg %}
+                 Veg
+                {% else %}
+                 Non-Veg
+                {% endif %}</td>
+            <td><img src="{{item.picture}}"></td>
+            <td>₹{{item.price}}</td>
+            <td><a href="{% url 'add_to_cart' uname rname item.name %}">Add To Cart</a></td>
+        </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No items available.</p>
+    {% endif %}
+
+
+
+    
+
+    
+</body>
+</html>
