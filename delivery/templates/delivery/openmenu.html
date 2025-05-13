@@ -3,54 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  {% load static %}
+    <title>Menu</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  
 </head>
 <body>
-    
+
 <div class="bg-float">🍔</div>
 <div class="bg-float">🍕</div>
 <div class="bg-float">🌯</div>
 <div class="bg-float">🍟</div>
 <div class="bg-float">🥤</div>
-      <h3>Welcome {{uname}}</h3>
-      <a href="{% url 'show_cart_page' uname %}">View Cart</a>
-       {% if items %}
-        <table >
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Vegetarian</th>
-            <th>Picture</th>
-            <th>price</th>
-            <th>Operation</th>
-        </tr>
-        
-        {% for item in items %}
-        <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.desc}}</td>
-            <td>{% if item.veg %}
-                 Veg
+
+<h3>Welcome {{ uname }}</h3>
+<a href="{% url 'show_cart_page' uname %}">View Cart</a>
+
+{% if items %}
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Vegetarian</th>
+        <th>Picture</th>
+        <th>Price</th>
+        <th>Operation</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.desc }}</td>
+        <td>
+            {% if item.veg %}
+                Veg
+            {% else %}
+                Non-Veg
+            {% endif %}
+        </td>
+        <td><img src="{{ item.picture }}" alt="{{ item.name }}" width="100"></td>
+        <td>₹{{ item.price }}</td>
+        <td>
+            {% with cart_item=None %}
+                {% for ci in cart_items %}
+                    {% if ci.item.id == item.id %}
+                        {% with cart_item=ci %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if cart_item %}
+                    <form action="{% url 'decrease_quantity' cart_item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">−</button>
+                    </form>
+                    {{ cart_item.quantity }}
+                    <form action="{% url 'increase_quantity' cart_item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">+</button>
+                    </form>
                 {% else %}
-                 Non-Veg
-                {% endif %}</td>
-            <td><img src="{{item.picture}}"></td>
-            <td>₹{{item.price}}</td>
-            <td><a href="{% url 'add_to_cart' uname rname item.name %}">Add To Cart</a></td>
-        </tr>
-        {% endfor %}
-        </table>
-    {% else %}
-        <p>No items available.</p>
-    {% endif %}
+                    <a href="{% url 'add_to_cart' uname rname item.name %}">Add To Cart</a>
+                {% endif %}
+            {% endwith %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No items available.</p>
+{% endif %}
 
-
-
-    
-
-    
 </body>
 </html>

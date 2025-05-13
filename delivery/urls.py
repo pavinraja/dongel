@@ -18,5 +18,9 @@ urlpatterns = [
     path('add_menu/<str:rname>/', views.add_menu, name="add_menu"),
     path('open_menu/<str:rname>/<str:uname>', views.open_menu, name="open_menu"),
     path('add_to_cart/<str:uname>/<str:rname>/<str:iname>', views.add_to_cart, name = "add_to_cart"),
-    path('show_cart_page/<str:name>/', views.show_cart_page, name="show_cart_page"),
+    path('show_cart_page/<str:username>/', views.show_cart_page, name='show_cart_page'),
+    path('cart/increase/<int:cart_item_id>/', views.increase_quantity, name='increase_quantity'),
+    path('cart/decrease/<int:cart_item_id>/', views.decrease_quantity, name='decrease_quantity'),
+    path('checkout/<str:name>/', views.checkout, name="checkout"),
+    path('orders/<str:username>/', views.orders, name='orders'),
 ]

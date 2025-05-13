@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <style>
+  button {    
+    background: linear-gradient(135deg, #ff3b3f, #ff6769);
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(255, 59, 63, 0.4);
+} 
+form {
+    margin:2px;
+    padding: 2px;
+
+}
+    </style>
+</head>
+<body>
+<div class="bg-float">🍔</div>
+<div class="bg-float">🍕</div>
+<div class="bg-float">🌯</div>
+<div class="bg-float">🍟</div>
+<div class="bg-float">🥤</div>
+
+<h1>Welcome {{ username }}</h1>
+<h2>Your Cart</h2>
+
+
+{% if cart_items %}
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart_item in cart_items %}
+            <tr>
+                <td>
+                    <img src="{{ cart_item.item.picture }}" alt="{{ cart_item.item.name }}" width="100">
+                </td>
+                <td>{{ cart_item.item.name }}</td>
+                <td>{{ cart_item.item.desc }}</td>
+                <td>
+                    <form action="{% url 'decrease_quantity' cart_item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="quantity">−</button>
+                    </form>
+                    {{ cart_item.quantity }}
+                    <form action="{% url 'increase_quantity' cart_item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="quantity">+</button>
+                    </form>
+                </td>
+                <td>₹{{ cart_item.item.price }}</td>
+                <td>₹{{ cart_item.subtotal }}</td>
+ <!-- Direct multiplication -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Total Price: ₹{{ total_price }}</h3>
+    <a href="{% url 'checkout' username %}">Proceed to CheckOut</a>
+{% else %}
+    <h3>No Item in the Cart</h3>
+{% endif %}
+
+
+</body>
+</html>

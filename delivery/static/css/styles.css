@@ -202,7 +202,7 @@ label {
     margin-bottom: 5px;
 }
 
-a,button, input[type="submit"] {
+a, button, input[type="submit"] {
     background: linear-gradient(135deg, #ff3b3f, #ff6769);
     color: white;
     padding: 12px 28px;
@@ -280,3 +280,4 @@ input[type="checkbox"]:checked::after {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+
